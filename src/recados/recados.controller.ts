@@ -16,6 +16,7 @@ export class RecadosController {  constructor(
 
   @Get()
    async getAllRecados(@Query() paginatioDto: PaginationDto) {
+    console.log(paginatioDto)
     return this.recadosService.getAllRecado(paginatioDto);
   }
 

@@ -24,13 +24,11 @@ export class RecadosService {
   };
 
   async getAllRecado(paginationDto: PaginationDto) {
-    const { limit = 10, offset = 0, search = '' } = paginationDto;
+    const { limit = 10, offset = 0 } = paginationDto;
 
     const [recados, total] = await this.recadoRepository.findAndCount({
-      where: [
-        { texto: Like(`%${search}%`) },
-        { para: Like(`%${search}%`) },
-      ],
+      take: limit,
+      skip: offset,
     });
 
     return {
@@ -39,7 +37,6 @@ export class RecadosService {
         total,
         limit,
         offset,
-        search,
         hasNextPage: total > offset + limit
       }
     }

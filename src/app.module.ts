@@ -1,20 +1,26 @@
 import { Module } from '@nestjs/common';
 import { RecadosModule } from './recados/recados.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { PessoasModule } from './pessoas/pessoas.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      database: 'recados',
-      password: '0000',
+      type: process.env.DB_TYPE,
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      database: process.env.DB_NAME,
+      password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-    }),
+    } as TypeOrmModuleOptions),
     RecadosModule,
+    PessoasModule,
   ],
   controllers: [],
   providers: [],
