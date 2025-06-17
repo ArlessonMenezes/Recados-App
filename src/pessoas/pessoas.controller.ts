@@ -19,8 +19,8 @@ export class PessoasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pessoasService.findOnePessoa(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.pessoasService.findOnePessoa(id);
   }
 
   @Patch(':id')

@@ -14,7 +14,7 @@ export class Pessoa {
   email: string;
 
   @Column({ length: 255 })
-  passwordHash: string;
+  password: string;
 
   @CreateDateColumn()
   createdAt?: Date;
