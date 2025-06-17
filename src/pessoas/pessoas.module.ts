@@ -10,5 +10,6 @@ import { Pessoa } from './entities/pessoa.entity';
     ],
   controllers: [PessoasController],
   providers: [PessoasService],
+  exports: [PessoasService],
 })
 export class PessoasModule {}

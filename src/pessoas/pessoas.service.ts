@@ -61,7 +61,8 @@ export class PessoasService {
 
   async findOnePessoa(id: number) {
     const existingPessoa = await this.pessoaRepository.findOne({
-      where: { idPessoa: id }
+      where: { idPessoa: id },
+      select: ['idPessoa', 'name', 'email', 'receivedRecados', 'sentRecados'],
     });
 
     if (!existingPessoa) {
