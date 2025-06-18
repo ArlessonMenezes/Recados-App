@@ -111,5 +111,7 @@ export class RecadosService {
     const recado = await this.getOneRecado(id);
 
     await this.recadoRepository.remove(recado);
+
+    return { success: 'Recado deletado com sucesso.' };
   }
 }
