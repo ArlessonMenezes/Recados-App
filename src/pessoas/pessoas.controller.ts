@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, Put } from '@nestjs/common';
 import { PessoasService } from './pessoas.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
@@ -23,12 +23,15 @@ export class PessoasController {
     return this.pessoasService.findOnePessoa(id);
   }
 
-  @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updatePessoaDto: UpdatePessoaDto) {
+  @Put('/update-pessoa/:id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePessoaDto: UpdatePessoaDto)
+  {
     return this.pessoasService.updatePessoa(id, updatePessoaDto);
   }
 
-  @Delete(':id')
+  @Delete('/delete-pessoa/:id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.pessoasService.removePessoa(id);
   }

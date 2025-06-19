@@ -77,12 +77,19 @@ export class PessoasService {
 
     await this.pessoaRepository.update(id, updatePessoaDto);
 
-    return this.pessoaRepository.findOneBy({ idPessoa: id });
+    const pessoa = await this.pessoaRepository.findOne({
+      where: { idPessoa: id },
+      select: ['idPessoa', 'name', 'email'],
+    });
+
+    return pessoa;
   }
 
   async removePessoa(id: number) {
     const pessoa = await this.findOnePessoa(id);
     
     await this.pessoaRepository.remove(pessoa);
+
+    return { success: 'Pessoa deletada com sucesso.' };
   }
 }

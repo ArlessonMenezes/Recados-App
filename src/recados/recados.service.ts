@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Recado } from './entities/recado.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateRecadoDto } from './dto/create-recado.dto';
@@ -97,14 +97,14 @@ export class RecadosService {
   }
 
   async updateRecado(updateRecadoDto: UpdateRecadoDto, id: number) {
-    await this.getOneRecado(id);
+    const recado = await this.getOneRecado(id);
 
-    await this.recadoRepository.update(id, {
-      texto: updateRecadoDto?.texto,
-      lido: updateRecadoDto?.lido,
-    });
+   recado.texto = updateRecadoDto?.texto ?? recado.texto;
+   recado.lido = updateRecadoDto?.lido ?? recado.lido;
 
-    return this.recadoRepository.findOneBy({ id });
+   await this.recadoRepository.save(recado);
+
+    return recado;
   };
 
   async deleteRecado(id: number) {
