@@ -42,8 +42,8 @@ export class RecadosService {
     };
   };
 
-  async getAllRecado(paginationDto: PaginationDto) {
-    const { limit = 10, offset = 0 } = paginationDto;
+  async getAllRecado(paginationDto?: PaginationDto) {
+    const { limit = 10, offset = 0 } = paginationDto as PaginationDto;
 
     const [recados, total] = await this.recadoRepository.findAndCount({
       relations: ['de', 'para'],

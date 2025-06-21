@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UsePipes } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
+import { ParseIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 
 @Controller('recados')
 export class RecadosController {  constructor(
@@ -20,20 +21,20 @@ export class RecadosController {  constructor(
   }
 
   @Get('/:id')
-   async getOneRecado(@Param('id', ParseIntPipe) id: number) {
+   async getOneRecado(@Param('id') id: number) {
     return this.recadosService.getOneRecado(id);
   }
   
   @Put('/update-recado/:id')
    async updateRecado(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: number,
     @Body() updateRecadoDto: UpdateRecadoDto,
    ) {
     return this.recadosService.updateRecado(updateRecadoDto, id);
   }
   
   @Delete('/delete-recado/:id')
-   async deleteRecado(@Param('id', ParseIntPipe) id: number) {
+   async deleteRecado(@Param('id') id: number) {
     return this.recadosService.deleteRecado(id);
   }
 }
